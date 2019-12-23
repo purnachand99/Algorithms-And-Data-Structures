@@ -11,7 +11,45 @@ public class MergeSort {
 		}
 	}// end of method
 
-	static void merge(int arr[], int l, int m, int r) {
+	static void merge(int Arr[], int start, int mid, int end) {
+
+		// create a temp array
+		int temp[] = new int[end - start + 1];
+
+		// crawlers for both intervals and for temp
+		int i = start, j = mid+1, k = 0;
+
+		// traverse both arrays and in each iteration add smaller of both elements in temp 
+		while(i <= mid && j <= end) {
+			if(Arr[i] <= Arr[j]) {
+				temp[k] = Arr[i];
+				k += 1; i += 1;
+			}
+			else {
+				temp[k] = Arr[j];
+				k += 1; j += 1;
+			}
+		}
+
+		// add elements left in the first interval 
+		while(i <= mid) {
+			temp[k] = Arr[i];
+			k += 1; i += 1;
+		}
+
+		// add elements left in the second interval 
+		while(j <= end) {
+			temp[k] = Arr[j];
+			k += 1; j += 1;
+		}
+
+		// copy temp to original interval
+		for(i = start; i <= end; i += 1) {
+			Arr[i] = temp[i - start];
+		}
+	}
+	
+	static void merge1(int arr[], int l, int m, int r) {
 		// Find sizes of two subarrays to be merged
 		int n1 = m - l + 1;
 		int n2 = r - m;
@@ -57,8 +95,8 @@ public class MergeSort {
 			k++;
 		}
 	}
-
-	static void merge_old(int[] A, int left, int middle, int right) {
+	
+	static void merge2(int[] A, int left, int middle, int right) {
 		int[] leftTmpArray = new int[middle - left + 2]; // Create tmp arrays
 		int[] rightTmpArray = new int[right - middle + 1];
 
